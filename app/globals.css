@@ -1,0 +1,208 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --bg-0: #05050c;
+  --bg-1: #08081a;
+  --line: rgba(255, 255, 255, 0.07);
+  --line-strong: rgba(255, 255, 255, 0.12);
+  --text: #e6e7ee;
+  --text-dim: rgba(230, 231, 238, 0.62);
+  --text-mute: rgba(230, 231, 238, 0.42);
+}
+
+html,
+body {
+  height: 100%;
+  background: var(--bg-0);
+  color: var(--text);
+}
+
+body {
+  font-feature-settings: "ss01", "cv11", "calt";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* ---- App background: aurora mesh + dotted grid ---- */
+.app-bg {
+  background-image:
+    radial-gradient(60% 40% at 18% -10%, rgba(139, 92, 246, 0.22) 0%, transparent 60%),
+    radial-gradient(50% 30% at 92% 0%, rgba(34, 211, 238, 0.16) 0%, transparent 60%),
+    radial-gradient(40% 30% at 50% 110%, rgba(244, 63, 94, 0.10) 0%, transparent 60%),
+    linear-gradient(180deg, #05050c 0%, #08081a 100%);
+  background-attachment: fixed;
+}
+
+.app-grid::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.045) 1px, transparent 0);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(ellipse at center, black 35%, transparent 80%);
+  z-index: 0;
+}
+
+/* ---- Surfaces ---- */
+.glass {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.012));
+  border: 1px solid var(--line);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.glass-strong {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+  border: 1px solid var(--line-strong);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+}
+
+.surface {
+  background: rgba(11, 11, 26, 0.6);
+  border: 1px solid var(--line);
+}
+
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--line-strong), transparent);
+}
+
+/* ---- Gradient border (1px hairline) ---- */
+.grad-border {
+  position: relative;
+  background-clip: padding-box;
+}
+.grad-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.55), rgba(34, 211, 238, 0.35), rgba(244, 63, 94, 0.35));
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ---- Loading shimmer ---- */
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.04) 0%,
+    rgba(255, 255, 255, 0.16) 50%,
+    rgba(255, 255, 255, 0.04) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2.2s linear infinite;
+}
+
+/* ---- Scrollbars ---- */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.08); border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.16); }
+
+/* ---- Logical-property utilities (RTL-friendly) ---- */
+.ms-auto { margin-inline-start: auto; }
+.me-auto { margin-inline-end: auto; }
+.ps-2 { padding-inline-start: 0.5rem; }
+.ps-3 { padding-inline-start: 0.75rem; }
+.ps-4 { padding-inline-start: 1rem; }
+.pe-2 { padding-inline-end: 0.5rem; }
+.pe-3 { padding-inline-end: 0.75rem; }
+.pe-4 { padding-inline-end: 1rem; }
+
+/* ---- Focus ring ---- */
+.focus-ring:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.65), 0 0 0 4px rgba(139, 92, 246, 0.18);
+}
+
+/* ---- Component primitives ---- */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+}
+
+.kbd {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 6px;
+  border: 1px solid var(--line-strong);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-dim);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-dim);
+}
+
+.badge-soon {
+  background: rgba(139, 92, 246, 0.12);
+  color: #d6c8ff;
+  border-color: rgba(139, 92, 246, 0.35);
+}
+
+.badge-live {
+  background: rgba(16, 185, 129, 0.12);
+  color: #a7f3d0;
+  border-color: rgba(16, 185, 129, 0.35);
+}
+
+/* Card hover lift */
+.lift {
+  transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease, background 200ms ease;
+}
+.lift:hover {
+  transform: translateY(-2px);
+  border-color: var(--line-strong);
+  box-shadow: 0 16px 40px -22px rgba(99, 102, 241, 0.5);
+}
+
+/* Section anchor offset (for sticky header) */
+[id] { scroll-margin-top: 96px; }
+
+/* Selection */
+::selection { background: rgba(139, 92, 246, 0.45); color: #fff; }
+
+/* Anim helpers */
+.fade-in { animation: fadeUp 0.5s ease-out both; }
+
+/* First-highlight pulse (1.5s total: two 0.75s cycles) */
+@keyframes pulseFirstHighlight {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0); }
+  50% {
+    box-shadow:
+      0 0 0 4px rgba(244, 63, 94, 0.45),
+      0 0 0 10px rgba(244, 63, 94, 0);
+  }
+}
+.pulse-first {
+  animation: pulseFirstHighlight 0.75s ease-in-out 2;
+  border-radius: 4px;
+}
+
+/* No-layout-shift container for the loading state */
+.min-stage {
+  min-height: 360px;
+}
